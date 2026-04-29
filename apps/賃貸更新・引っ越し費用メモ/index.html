@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>賃貸更新・引っ越し費用メモ</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Daily Trial Build / Web App</p>
+        <h1>賃貸更新・引っ越し費用メモ</h1>
+        <p class="hero-copy">
+          敷金礼金、更新料、火災保険、引っ越し費用を一画面で比較して、
+          「更新するか、引っ越すか」をすぐ判断できるメモツールです。
+        </p>
+      </div>
+      <div class="hero-actions">
+        <button id="printReportButton" class="secondary-button" type="button">PDF用に印刷</button>
+        <button id="downloadPngButton" class="primary-button" type="button">比較カードをPNG保存</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>基本情報</h2>
+          <p>契約満了日と家賃を入れると、通知期限と支払目安を自動計算します。</p>
+        </div>
+        <div class="grid two-up">
+          <label>
+            <span>現在の家賃 (円)</span>
+            <input id="monthlyRent" name="monthlyRent" type="number" min="0" step="1000" value="95000">
+          </label>
+          <label>
+            <span>契約満了日</span>
+            <input id="contractEndDate" name="contractEndDate" type="date">
+          </label>
+          <label>
+            <span>退去予告日数</span>
+            <input id="noticePeriodDays" name="noticePeriodDays" type="number" min="0" step="1" value="30">
+          </label>
+          <label>
+            <span>更新料の倍率 (家賃何か月分)</span>
+            <input id="renewalMultiplier" name="renewalMultiplier" type="number" min="0" step="0.1" value="1">
+          </label>
+        </div>
+      </section>
+
+      <section class="panel panel-split">
+        <div>
+          <div class="panel-heading">
+            <h2>更新する場合の費用</h2>
+            <p>契約更新のときに必要になる項目だけに絞っています。</p>
+          </div>
+          <div class="grid">
+            <label>
+              <span>更新手数料・事務手数料 (円)</span>
+              <input id="renewalAdminFee" name="renewalAdminFee" type="number" min="0" step="1000" value="11000">
+            </label>
+            <label>
+              <span>火災保険更新 (円)</span>
+              <input id="renewalInsurance" name="renewalInsurance" type="number" min="0" step="1000" value="18000">
+            </label>
+            <label>
+              <span>保証会社更新 (円)</span>
+              <input id="renewalGuarantor" name="renewalGuarantor" type="number" min="0" step="1000" value="12000">
+            </label>
+            <label>
+              <span>その他の更新費用 (円)</span>
+              <input id="renewalOther" name="renewalOther" type="number" min="0" step="1000" value="0">
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <div class="panel-heading">
+            <h2>引っ越す場合の費用</h2>
+            <p>新居入居から退去までに発生しやすい項目をまとめています。</p>
+          </div>
+          <div class="grid">
+            <label>
+              <span>敷金 (円)</span>
+              <input id="movingDeposit" name="movingDeposit" type="number" min="0" step="1000" value="95000">
+            </label>
+            <label>
+              <span>礼金 (円)</span>
+              <input id="movingKeyMoney" name="movingKeyMoney" type="number" min="0" step="1000" value="95000">
+            </label>
+            <label>
+              <span>仲介手数料 (円)</span>
+              <input id="movingBrokerFee" name="movingBrokerFee" type="number" min="0" step="1000" value="52250">
+            </label>
+            <label>
+              <span>火災保険 (円)</span>
+              <input id="movingInsurance" name="movingInsurance" type="number" min="0" step="1000" value="18000">
+            </label>
+            <label>
+              <span>保証会社初回費用 (円)</span>
+              <input id="movingGuarantor" name="movingGuarantor" type="number" min="0" step="1000" value="47500">
+            </label>
+            <label>
+              <span>引っ越し業者 (円)</span>
+              <input id="movingTruck" name="movingTruck" type="number" min="0" step="1000" value="60000">
+            </label>
+            <label>
+              <span>退去クリーニング (円)</span>
+              <input id="movingCleaning" name="movingCleaning" type="number" min="0" step="1000" value="35000">
+            </label>
+            <label>
+              <span>鍵交換など (円)</span>
+              <input id="movingLockChange" name="movingLockChange" type="number" min="0" step="1000" value="22000">
+            </label>
+            <label>
+              <span>その他の引っ越し費用 (円)</span>
+              <input id="movingOther" name="movingOther" type="number" min="0" step="1000" value="0">
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel emphasis-panel">
+        <div class="summary-header">
+          <div>
+            <p class="eyebrow">Instant Summary</p>
+            <h2>総額比較</h2>
+          </div>
+          <p id="decisionMessage" class="decision-message"></p>
+        </div>
+
+        <div class="summary-cards">
+          <article class="summary-card">
+            <p class="card-label">更新する場合</p>
+            <p id="renewalTotal" class="card-value">¥0</p>
+            <ul id="renewalBreakdown" class="breakdown-list"></ul>
+          </article>
+          <article class="summary-card contrast">
+            <p class="card-label">引っ越す場合</p>
+            <p id="movingTotal" class="card-value">¥0</p>
+            <ul id="movingBreakdown" class="breakdown-list"></ul>
+          </article>
+        </div>
+
+        <div class="difference-box">
+          <p class="difference-label">差額</p>
+          <p id="differenceValue" class="difference-value">¥0</p>
+          <p id="differenceMessage" class="difference-message"></p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>期限カレンダー</h2>
+          <p>退去予告の締切や、動き始める目安を一覧にしています。</p>
+        </div>
+        <div id="timeline" class="timeline"></div>
+      </section>
+    </main>
+  </div>
+
+  <canvas id="exportCanvas" width="1400" height="900" hidden></canvas>
+  <script src="app.js"></script>
+</body>
+</html>
