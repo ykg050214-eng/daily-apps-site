@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>停電断水48時間準備帳</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">48 Hour Readiness</p>
+        <h1>停電断水48時間準備帳</h1>
+        <p>
+          家族人数に合わせて必要な水・電源・現金を見える化し、
+          停電や断水が起きても「まず何をするか」がすぐ分かる防災ダッシュボードです。
+        </p>
+      </div>
+      <div class="hero-actions">
+        <button id="saveImageButton" class="accent-button" type="button">状態カードを保存</button>
+        <button id="resetButton" class="ghost-button" type="button">初期状態に戻す</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel control-panel">
+        <div class="panel-heading">
+          <h2>家庭設定</h2>
+          <p>人数や乳幼児・ペットの有無で必要量が変わります。自宅ごとの備えに合わせて調整できます。</p>
+        </div>
+        <div class="controls-grid">
+          <label>
+            <span>家族人数</span>
+            <input id="familySize" type="number" min="1" max="10" value="3">
+          </label>
+          <label>
+            <span>備え日数</span>
+            <select id="hoursTarget">
+              <option value="24">24時間</option>
+              <option value="48" selected>48時間</option>
+              <option value="72">72時間</option>
+            </select>
+          </label>
+          <label class="toggle-card">
+            <span>乳幼児あり</span>
+            <input id="hasInfant" type="checkbox">
+          </label>
+          <label class="toggle-card">
+            <span>ペットあり</span>
+            <input id="hasPet" type="checkbox" checked>
+          </label>
+        </div>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="panel spotlight-card">
+          <div class="panel-heading compact">
+            <div>
+              <p class="eyebrow">Preparedness Score</p>
+              <h2>備えスコア</h2>
+            </div>
+            <p id="scoreLabel" class="score-label"></p>
+          </div>
+          <div class="score-wrap">
+            <div class="score-ring">
+              <div class="score-inner">
+                <strong id="preparednessScore">0%</strong>
+                <span>準備完了</span>
+              </div>
+            </div>
+            <div class="score-details">
+              <p id="scoreMessage" class="score-message"></p>
+              <div class="status-pills">
+                <span id="waterStatus" class="pill"></span>
+                <span id="powerStatus" class="pill"></span>
+                <span id="cashStatus" class="pill"></span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel metrics-card">
+          <div class="panel-heading compact">
+            <div>
+              <p class="eyebrow">Need Calculator</p>
+              <h2>必要量</h2>
+            </div>
+          </div>
+          <div class="metric-list">
+            <div class="metric">
+              <span>飲料水</span>
+              <strong id="neededWater">0L</strong>
+              <small id="waterHint"></small>
+            </div>
+            <div class="metric">
+              <span>モバイル電源</span>
+              <strong id="neededBattery">0回分</strong>
+              <small>スマホ1人1日2回充電を目安</small>
+            </div>
+            <div class="metric">
+              <span>現金の目安</span>
+              <strong id="neededCash">¥0</strong>
+              <small>停電時の買い出しや交通費を想定</small>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>備蓄と期限管理</h2>
+          <p>チェック状態はこの端末に保存されます。空欄でも使い始められるよう、初期値を入れています。</p>
+        </div>
+        <div id="supplyChecklist" class="checklist-grid"></div>
+      </section>
+
+      <section class="dual-grid">
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>停電・断水時の優先行動</h2>
+            <p>公式情報の代わりではなく、自宅の備えを抜けなく使うための順番ガイドです。</p>
+          </div>
+          <div id="actionCards" class="action-cards"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>期限アラート</h2>
+            <p>モバイルバッテリー、水、非常食など、切れやすいものだけ先に目立たせています。</p>
+          </div>
+          <div id="alerts" class="alerts"></div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>持ち出しメモ</h2>
+          <p>避難時に迷いやすい項目を書き残せます。家族で共有したい内容にも使えます。</p>
+        </div>
+        <textarea id="notes" rows="6" placeholder="例: 懐中電灯は玄関収納の上段。現金はパスポートケース横。ペットフードはキッチン下段。"></textarea>
+      </section>
+    </main>
+  </div>
+
+  <canvas id="exportCanvas" width="1400" height="900" hidden></canvas>
+  <script src="app.js"></script>
+</body>
+</html>
