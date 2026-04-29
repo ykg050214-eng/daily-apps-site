@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>夜のスマホ終了ルーティン</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-left"></div>
+  <div class="ambient ambient-right"></div>
+
+  <div class="app-shell">
+    <header class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Night Exit Ritual</p>
+        <h1>夜のスマホ終了ルーティン</h1>
+        <p>
+          SNSを閉じる、充電場所に置く、照明を落とす。
+          寝る前の流れを毎晩同じ順番に固定して、スマホをやめる切り替えを作る1分アプリです。
+        </p>
+      </div>
+      <div class="hero-actions">
+        <button id="startFocusButton" class="primary-button" type="button">今夜の1分を始める</button>
+        <button id="markDoneButton" class="secondary-button" type="button">今日は完了した</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel today-panel">
+        <div class="panel-heading compact">
+          <div>
+            <p class="eyebrow">Tonight</p>
+            <h2>今日のルーティン</h2>
+          </div>
+          <p id="todayStatus" class="status-copy"></p>
+        </div>
+
+        <div class="today-grid">
+          <article class="summary-card spotlight">
+            <span class="card-label">連続達成</span>
+            <strong id="streakCount">0日</strong>
+            <p id="streakMessage" class="subtle-copy"></p>
+          </article>
+          <article class="summary-card">
+            <span class="card-label">今週の達成率</span>
+            <strong id="weeklyRate">0%</strong>
+            <p id="weeklyMessage" class="subtle-copy"></p>
+          </article>
+          <article class="summary-card">
+            <span class="card-label">目標就寝時刻</span>
+            <strong id="bedtimeDisplay">23:30</strong>
+            <p class="subtle-copy">この10分前をルーティン開始の目安にします。</p>
+          </article>
+        </div>
+
+        <div id="stepPreview" class="step-preview"></div>
+      </section>
+
+      <section class="split-grid">
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>1分ルーティン設定</h2>
+            <p>3ステップ以内に制限して、考えずに回せる導線を保ちます。</p>
+          </div>
+
+          <div id="routineInputs" class="routine-inputs"></div>
+
+          <div class="settings-grid">
+            <label>
+              <span>目標就寝時刻</span>
+              <input id="bedtimeInput" type="time" value="23:30">
+            </label>
+            <label>
+              <span>置き場所メモ</span>
+              <input id="dropSpotInput" type="text" maxlength="40" placeholder="例: 玄関横の充電台">
+            </label>
+          </div>
+
+          <div id="settingsHint" class="hint-box"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h2>今週の達成履歴</h2>
+            <p>毎日1回だけ開く設計です。寝る直前に終えると、流れが習慣になりやすくなります。</p>
+          </div>
+          <div id="weekTracker" class="week-tracker"></div>
+          <div id="emptyState" class="empty-state"></div>
+        </article>
+      </section>
+
+      <section class="panel guidance-panel">
+        <div class="panel-heading">
+          <h2>切り替えがしやすい使い方</h2>
+          <p>通知の代わりではなく、手を止めて行動を変えるための短い儀式として使います。</p>
+        </div>
+        <div class="guidance-grid">
+          <article class="guide-card">
+            <strong>最初のステップは「アプリを閉じる」</strong>
+            <p>最初に視線を奪うものを止めると、その後の流れがかなり楽になります。</p>
+          </article>
+          <article class="guide-card">
+            <strong>置き場所を固定する</strong>
+            <p>手が届かない場所に置く前提にすると、意思より先に行動を変えやすくなります。</p>
+          </article>
+          <article class="guide-card">
+            <strong>毎晩同じ順番で回す</strong>
+            <p>内容を増やすより、同じ順番を守るほうが継続率は高くなります。</p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <section id="focusOverlay" class="focus-overlay hidden" aria-hidden="true">
+    <div class="focus-shell">
+      <p class="eyebrow">Focus Screen</p>
+      <h2 id="focusTitle">今夜の1分</h2>
+      <p id="focusStepName" class="focus-step-name"></p>
+      <div class="focus-ring">
+        <div class="focus-ring-inner">
+          <strong id="focusCountdown">60</strong>
+          <span>seconds</span>
+        </div>
+      </div>
+      <div id="focusStepDots" class="focus-step-dots"></div>
+      <p id="focusHint" class="focus-hint"></p>
+      <div class="focus-actions">
+        <button id="nextStepButton" class="primary-button" type="button">次のステップへ</button>
+        <button id="closeOverlayButton" class="secondary-button" type="button">やめる</button>
+      </div>
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Apps Portal</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0d1220;
+      --panel: rgba(18, 28, 49, 0.88);
+      --text: #eef2ff;
+      --muted: #9ba8c7;
+      --accent: #7dd3fc;
+      --line: rgba(255,255,255,0.1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Yu Gothic UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(125,211,252,0.18), transparent 26%),
+        linear-gradient(180deg, #0d1220 0%, #060912 100%);
+    }
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+    }
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .card {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      border-radius: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      text-decoration: none;
+      color: inherit;
+    }
+    .card strong {
+      font-size: 1.15rem;
+    }
+    .card span:last-child {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Daily Builder</div>
+    <h1>Published Apps</h1>
+    <p>A portal that publishes the apps created by the daily builder workflow.</p>
+    <div class="grid">
+              <a class="card" href="./apps/夜のスマホ終了ルーティン/">
+          <span class="eyebrow">Published App</span>
+          <strong>夜のスマホ終了ルーティン</strong>
+          <span>Open app</span>
+        </a>
+    </div>
+  </main>
+</body>
+</html>
